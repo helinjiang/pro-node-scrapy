@@ -1,0 +1,7 @@
+{
+  "name": "using-node-scrapy",
+  "version": "1.0.0",
+  "dependencies": {
+    "node-scrapy": "^0.2.3"
+  }
+}

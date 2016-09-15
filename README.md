@@ -8,7 +8,7 @@
 
 每个目标页面输出 JSON 格式的数据，例如：
 
-```javascript
+```
 {
     "url": "https://github.com/facebook/react",
     "repo": "https://github.com/facebook/react.git",
@@ -31,3 +31,4 @@
 }
 ```
 
+> 各个项目是独立的，如要测试，请 `cd` 到相应的子目录中。
