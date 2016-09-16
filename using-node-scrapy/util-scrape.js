@@ -21,6 +21,12 @@ var model = {
 
 var obj = {};
 
+/**
+ * 抓取某个url页面，并且将结果在回调里面返回
+ * @param {string} url 要抓取的url页面
+ * @param {function} successCallback
+ * @param {function} errorCallback
+ */
 function scrapeAction(url, successCallback, errorCallback) {
     if (!url) {
         if (isFunc(errorCallback)) {
