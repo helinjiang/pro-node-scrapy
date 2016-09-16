@@ -22,16 +22,66 @@ var model = {
 var obj = {};
 
 var c = new Crawler({
-    maxConnections : 10,
+    maxConnections: 10,
 
     // This will be called for each crawled page
-    callback : function (error, result, $) {
+    callback: function (error, result, $) {
         // $ is Cheerio by default
         //a lean implementation of core jQuery designed specifically for the server
-        
-        console.log(result.uri,result.statusCode);
-        
 
+        if (error) {
+            /**
+             * result= undefined
+             * 如果发生了错误，则会返回类似：
+             * error 是个 Error 对象：
+             * {
+                  "code": "ENOTFOUND",
+                  "errno": "ENOTFOUND",
+                  "syscall": "getaddrinfo",
+                  "hostname": "github3.com",
+                  "host": "github3.com",
+                  "port": 443,
+                  "message": "getaddrinfo ENOTFOUND github3.com github3.com:443"
+                }
+             */
+            console.log(error.message);
+            return;
+        }
+
+        var url = result.uri,
+            target = obj[url],
+            statusCode = result.statusCode;
+
+        if (target) {
+            target.t2 = +new Date();
+
+            var _scrapy = {
+                    "t": target.t2,
+                    "cost": target.t2 - target.t1
+                },
+                successCallback = target.successCallback,
+                errorCallback = target.errorCallback;
+
+            if (statusCode == 200) {
+                _scrapy.status = 1;
+                if (isFunc(successCallback)) {
+                    var data = {};
+                    successCallback(_.assign({}, data, {
+                        url: url,
+                        _scrapy: _scrapy
+                    }));
+                }
+            } else {
+                _scrapy.status = 0;
+                if (isFunc(errorCallback)) {
+                    errorCallback(_.assign({}, err, {
+                        url: url,
+                        _scrapy: _scrapy
+                    }));
+                }
+            }
+
+        }
     }
 });
 
@@ -56,6 +106,8 @@ function scrapeAction(url, successCallback, errorCallback) {
 
     obj[url] = {};
     obj[url].t1 = +new Date();
+    obj[url].successCallback = successCallback;
+    obj[url].errorCallback = errorCallback;
 
     c.queue(url);
 

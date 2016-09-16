@@ -15,6 +15,6 @@ go('https://github.com/facebook/react');
 // go('https://github.com/facebook/buck');
 //
 // // 异常
-go('https://github22.com/facebook/react');
-go('https://github.com/facebook/react22');
+// go('https://github22.com/facebook/react');
+// go('https://github.com/facebook/react22');
 // go();
