@@ -1,0 +1,8 @@
+{
+  "name": "using-node-scrapy",
+  "version": "1.0.0",
+  "dependencies": {
+    "crawler": "^0.4.3",
+    "lodash": "^4.15.0"
+  }
+}
