@@ -63,7 +63,7 @@ var c = new Crawler({
                 errorCallback = target.errorCallback;
 
             if (statusCode == 200) {
-                _scrapy.status = 1;
+                _scrapy.status = statusCode;
                 if (isFunc(successCallback)) {
                     var data = {};
                     successCallback(_.assign({}, data, {
@@ -72,8 +72,9 @@ var c = new Crawler({
                     }));
                 }
             } else {
-                _scrapy.status = 0;
+                _scrapy.status = statusCode;
                 if (isFunc(errorCallback)) {
+                    var err = {};
                     errorCallback(_.assign({}, err, {
                         url: url,
                         _scrapy: _scrapy
@@ -96,7 +97,7 @@ function scrapeAction(url, successCallback, errorCallback) {
         if (isFunc(errorCallback)) {
             errorCallback({
                 _scrapy: {
-                    status: -1,
+                    status: 404,
                     errMsg: 'Empty url!'
                 }
             });

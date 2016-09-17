@@ -10,11 +10,11 @@ function go(url) {
 
 // 正常
 go('https://github.com/facebook/react');
-// go('https://github.com/facebook/nuclide');
-// go('https://github.com/facebook/jest');
-// go('https://github.com/facebook/buck');
+go('https://github.com/facebook/nuclide');
+go('https://github.com/facebook/jest');
+go('https://github.com/facebook/buck');
 //
 // // 异常
-// go('https://github22.com/facebook/react');
-// go('https://github.com/facebook/react22');
-// go();
+go('https://github22.com/facebook/react');
+go('https://github.com/facebook/react22');
+go();

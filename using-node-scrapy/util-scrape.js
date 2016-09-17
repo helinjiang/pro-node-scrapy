@@ -32,7 +32,7 @@ function scrapeAction(url, successCallback, errorCallback) {
         if (isFunc(errorCallback)) {
             errorCallback({
                 _scrapy: {
-                    status: -1,
+                    status: 404,
                     errMsg: 'Empty url!'
                 }
             });
@@ -52,18 +52,18 @@ function scrapeAction(url, successCallback, errorCallback) {
         };
 
         if (err) {
-            _scrapy.status = 0;
+            _scrapy.status = (err.code && err.code == 'ENOTFOUND') ? 404 : 500;
             if (isFunc(errorCallback)) {
                 errorCallback(_.assign({}, err, {
-                    url:url,
+                    url: url,
                     _scrapy: _scrapy
                 }));
             }
         } else {
-            _scrapy.status = 1;
+            _scrapy.status = 200;
             if (isFunc(successCallback)) {
                 successCallback(_.assign({}, data, {
-                    url:url,
+                    url: url,
                     _scrapy: _scrapy
                 }));
             }
